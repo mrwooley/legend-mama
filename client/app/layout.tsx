@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { type ReactNode } from 'react'
-import './globals.css'
+import './globals.css' // TODO: Remove if we don't end up using a global CSS file
+import { Providers } from './providers'
 
 export const metadata: Metadata = {
   title: 'Legend Mama',
@@ -14,7 +15,9 @@ export default function RootLayout ({
 }>): ReactNode {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }
