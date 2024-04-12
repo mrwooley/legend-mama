@@ -4,8 +4,21 @@ steps:
 - name: 'gcr.io/kaniko-project/executor:latest'
   args:
   - --context=${_CONTEXT} # The directory we will run docker build from
-  - --destination=${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE} # Destination for finished image - in Artifacts Registry
+  - --destination=${_FULL_IMAGE_NAME} # Destination for finished image - in Artifacts Registry
   - --cache=true # Kaniko caches each layer of the build and reuses them as necessary
+# deploy new build on Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: [
+    'run', 'deploy', '${_IMAGE}-${_ENV}',
+    '--image', '${_FULL_IMAGE_NAME}',
+    '--region', '${_LOCATION}'
+    ]
+
+substitutions:
+  _FULL_IMAGE_NAME: ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}
+options:
+  dynamicSubstitutions: true # allows the use of variables based on other variables (like _FULL_IMAGE_NAME)
 
 # Variables like $_REPOSITORY are user-defined substitution variables
 # These are set for the Cloud Build trigger associated with the different builds in the GCP console
