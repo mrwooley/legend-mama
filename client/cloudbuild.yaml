@@ -16,7 +16,7 @@ steps:
     ]
 
 substitutions:
-  _FULL_IMAGE_NAME: ${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}
+  _FULL_IMAGE_NAME: ${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE}
 options:
   dynamicSubstitutions: true # allows the use of variables based on other variables (like _FULL_IMAGE_NAME)
 
