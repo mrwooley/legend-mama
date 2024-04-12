@@ -99,7 +99,7 @@ jobs:
 
       # END - Docker auth and build
 
-      - name: Deploy to Cloud Run
+      - name: Deploy Client to Cloud Run
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
