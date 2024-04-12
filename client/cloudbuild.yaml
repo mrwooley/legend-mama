@@ -1,6 +1,6 @@
 steps:
 # build docker image using Dockerfile
-- name: 'kaniko-project/executor'
+- name: 'gcr.io/kaniko-project/executor:latest'
   args:
   - --context=dir:///client
   - --destination=${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/${_IMAGE}
