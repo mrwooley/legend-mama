@@ -12,7 +12,8 @@ steps:
   args: [
     'run', 'deploy', '${_IMAGE}-${_ENV}',
     '--image', '${_FULL_IMAGE_NAME}',
-    '--region', '${_LOCATION}'
+    '--region', '${_LOCATION}',
+    '--allow-unauthenticated'
     ]
 
 substitutions:
