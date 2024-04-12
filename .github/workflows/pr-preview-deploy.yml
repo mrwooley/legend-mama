@@ -113,7 +113,7 @@ jobs:
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
-        run: gh pr comment "$NUMBER" --edit-last --body "$BODY"
+        run: gh pr comment "$NUMBER" --edit-last --body "$BODY" || gh pr comment "$NUMBER" --body "$BODY"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
