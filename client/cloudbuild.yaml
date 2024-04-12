@@ -1,5 +1,16 @@
 steps:
+# pull previous image to use cache
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/production/client', './client']
+  entrypoint: 'bash'
+  args: ['-c', 'docker pull us-central1-docker.pkg.dev/${PROJECT_ID}/production/client || exit 0']
+# build docker image using Dockerfile
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+      'build', 
+      '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/production/client',
+      '--cache-from', 'us-central1-docker.pkg.dev/${PROJECT_ID}/production/client:latest',
+      './client'
+    ]
+# push built image to Google Artifact Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/production/client']
