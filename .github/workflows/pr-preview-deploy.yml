@@ -51,7 +51,7 @@ env:
   PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update Google Cloud project id
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # TODO: update Artifact Registry location
   CLIENT_SERVICE: client-${{ github.head_ref }}
-  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}:${{ github.sha }}
+  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}
   REGION: ${{ vars.GCR_LOCATION }} # TODO: update Cloud Run service region
 
 jobs:
@@ -95,7 +95,8 @@ jobs:
 
       - name: Build and Push Client Container
         run: |-
-          docker build -t "${{ env.CLIENT_IMAGE }}" ./client
+          bash -c 'docker pull "${{ env.CLIENT_IMAGE }}:latest" || exit 0'
+          docker build -t "${{ env.CLIENT_IMAGE }}" --cache-from "${{ env.CLIENT_IMAGE }}:latest" ./client
           docker push "${{ env.CLIENT_IMAGE }}"
 
       # END - Docker auth and build
