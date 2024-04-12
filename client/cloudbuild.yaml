@@ -1,5 +1,5 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', '${LOCATION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/client', './client']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/production/client', './client']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-docker.pkg.dev/legend-mama/production/client']
+  args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/productio/client']
