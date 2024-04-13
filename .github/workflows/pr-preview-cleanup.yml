@@ -85,7 +85,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: Clean up Artifact Registry
-        run: 'bash -c "gcloud artifacts docker images delete ${{ env.CLIENT_IMAGE }} || exit 0"'
+        run: 'bash -c "gcloud artifacts docker images delete ${{ env.CLIENT_IMAGE }} --quiet || exit 0"'
 
       - name: Clean up Cloud Run service
         run: 'bash -c "gcloud run services delete ${{ env.CLIENT_SERVICE }} --region=${{ env.REGION }} --quiet || exit 0"'
