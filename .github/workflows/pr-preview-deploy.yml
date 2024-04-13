@@ -47,6 +47,10 @@ name: PR Preview CD
 on:
   pull_request
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update Google Cloud project id
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # TODO: update Artifact Registry location
@@ -66,9 +70,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Cancel Pending Deployments
-        uses: styfle/cancel-workflow-action@0.12.1
 
       - name: Google Auth
         id: auth
