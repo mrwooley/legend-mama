@@ -54,8 +54,8 @@ concurrency:
 env:
   PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update Google Cloud project id
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # TODO: update Artifact Registry location
-  CLIENT_SERVICE: client-${{ github.head_ref }}-${{ github.sha }}
-  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}-${{ github.sha }}
+  CLIENT_SERVICE: client-${{ github.head_ref }}-${{ github.event.pull_request.number }}
+  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}-${{ github.event.pull_request.number }}
   REGION: ${{ vars.GCR_LOCATION }} # TODO: update Cloud Run service region
 
 jobs:
