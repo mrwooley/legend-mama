@@ -67,6 +67,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Cancel Pending Deployments
+        uses: styfle/cancel-workflow-action@0.12.1
+
       - name: Google Auth
         id: auth
         uses: 'google-github-actions/auth@v2'
