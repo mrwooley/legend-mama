@@ -49,7 +49,7 @@ on:
     types: [closed]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: actions-${{ github.ref }}
   cancel-in-progress: true
 
 env:
