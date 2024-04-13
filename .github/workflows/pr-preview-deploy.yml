@@ -122,4 +122,4 @@ jobs:
             ## #Preview Deployment
 
             **Your preview deployment is hosted at:**
-            :sparkles: https://google.com :sparkles:
+            :sparkles: ${{ steps.deploy.outputs.url }} :sparkles:
