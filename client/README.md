@@ -14,9 +14,10 @@ NEXT_PUBLIC_API = "http://localhost:3000/api/v1" # Set this to whatever URL the 
 npm i
 ```
 3. Start the Firestore emulator in the **/server** directory (i.e. `firestore emulators:start`)
-4. Start the Next.js dev server
+4. Start the backend server (see /server README)
+5. Start the Next.js dev server
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
