@@ -55,7 +55,9 @@ export class AICharGen {
       let returnedMessage = "";
       if (run.status === "completed") {
         const messages = await this.openai.beta.threads.messages.list(run.thread_id);
+        // console.log(messages)
         for (const message of messages.data.reverse()) {
+          // console.log(message)
           returnedMessage = message.content[0].text.value;
           // console.log(returnedMessage)
         }
@@ -102,6 +104,7 @@ export class AICharGen {
   // Convert response message to JSON
   #messageToJSON(message) {
     try {
+      // console.log(message)
       const jsonMatch = message.match(/```json\s*({[\s\S]*?})\s*```/);
 
       if (jsonMatch && jsonMatch[1]) {
