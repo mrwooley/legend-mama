@@ -8,7 +8,8 @@ steps:
   - --cache=true # Kaniko caches each layer of the build and reuses them as necessary
   - --cache-copy-layers=true
   - build
-  - --build-arg='CLIENT_URL=${_CLIENT_URL}'
+  - --build-arg=
+  - CLIENT_URL=${_CLIENT_URL}
 # deploy new build on Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
