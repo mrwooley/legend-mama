@@ -2,9 +2,9 @@
 Controller for account related operations
  */
 import asyncHandler from "express-async-handler";
-import {firestore} from "../firebase.js";
-import {NotFoundError, ForbiddenError} from "../middleware/errorHandlers.js";
-import {downloadImage, uploadFromMemory} from "../helpers/cloudStoreOperations.js";
+import { firestore } from "../firebase.js";
+import { NotFoundError, ForbiddenError } from "../middleware/errorHandlers.js";
+import { downloadImage, uploadFromMemory } from "../helpers/cloudStoreOperations.js";
 
 /**
  * Create a new user account which stores their gold balance and saved character sheets.
@@ -73,6 +73,12 @@ export const saveCharacterSheet = asyncHandler(async (req, res) => {
 export const listCharacterSheets = asyncHandler(async (req, res) => {
     const colRef = firestore.collection(`accounts/${req.uid}/characterSheets`);
     const docRefs = await colRef.listDocuments();
+
+    // No sheets exist
+    if (!docRefs?.length) {
+        return res.status(200).json([]);
+    }
+
     const docs = await firestore.getAll(...docRefs);
 
     let sheets = [];

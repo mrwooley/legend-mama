@@ -1,7 +1,7 @@
 "use client";
 import logo from "@/public/img/legend-mama-logo.png";
 import { Image, Link } from "@chakra-ui/next-js";
-import { Box, Flex, HStack } from "@chakra-ui/react";
+import { Box, Flex, HStack, Spinner, Tooltip } from "@chakra-ui/react";
 import Header from "./typography/Header";
 import GPToken from "./icons/GPToken";
 import Text from "./typography/Text";
@@ -18,12 +18,6 @@ export default function Navbar() {
   const data = useContext(DataContext);
   const router = useRouter();
   const url = usePathname();
-
-  const handleLogout = useCallback(() => {
-    signOut(auth.auth!)
-      .then(() => router.push("/"))
-      .catch((err) => console.error(err.message));
-  }, [auth.auth, router]);
 
   return (
     <Box
@@ -84,7 +78,7 @@ export default function Navbar() {
                     New Character
                   </Header>
                 </Link>
-                <Link href="/account" _hover={{ textDecoration: "unset" }}>
+                {/* <Link href="/account" _hover={{ textDecoration: "unset" }}>
                   <Header
                     as="h1"
                     size="lg"
@@ -105,7 +99,7 @@ export default function Navbar() {
                   >
                     Help
                   </Header>
-                </Link>
+                </Link> */}
               </>
             ) : (
               <>
@@ -134,22 +128,40 @@ export default function Navbar() {
               </>
             )}
           </Box>
-          {auth.loggedIn &&  (
+          {auth.loggedIn && (
             <Box w="100%">
               <HStack color="brand.800" fontSize={20} mx="auto" w="fit-content">
-                <Text
-                  fontFamily="var(--font-source-sans)"
-                  fontWeight={700}
-                  mb={0}
-                >
-                  <GPToken height={30} width={30} glow /> {data.user.goldBalance || "?"} GP
-                </Text>
-                <PiPlusCircleFill fontSize={24} />
-                <PiQuestionFill fontSize={24} />
+                {data.state.error ? (
+                  <Text>Error fetching account data.</Text>
+                ) : (
+                  <>
+                    <Text
+                      fontFamily="var(--font-source-sans)"
+                      fontWeight={700}
+                      mb={0}
+                    >
+                      <GPToken height={30} width={30} glow />{" "}
+                      {data.state.loading ? (
+                        <Spinner size="sm" />
+                      ) : (
+                        data.state.user.goldBalance ?? "?"
+                      )}{" "}
+                      GP
+                    </Text>
+                    <Tooltip label="You reset to 3GP every day.">
+                      <span>
+                        <PiQuestionFill
+                          fontSize={24}
+                          style={{ cursor: "help" }}
+                        />
+                      </span>
+                    </Tooltip>
+                  </>
+                )}
               </HStack>
 
               <Button
-                onClick={handleLogout}
+                onClick={() => router.push("/auth/logout")}
                 mt={4}
                 w="100%"
                 secondary
