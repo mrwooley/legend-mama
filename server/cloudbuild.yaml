@@ -11,8 +11,6 @@ steps:
 # deploy new build on Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  env:
-    - 'CLIENT_URL=${_CLIENT_URL}'
   args: [
     'run', 'deploy', '${_IMAGE}-${_ENV}',
     '--image', '${_FULL_IMAGE_NAME}',
