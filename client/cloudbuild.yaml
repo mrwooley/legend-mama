@@ -22,6 +22,7 @@ substitutions:
   _FULL_IMAGE_NAME: ${_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE}
 options:
   dynamicSubstitutions: true # allows the use of variables based on other variables (like _FULL_IMAGE_NAME)
+  logging: CLOUD_LOGGING_ONLY
 
 # Variables like $_REPOSITORY are user-defined substitution variables
 # These are set for the Cloud Build trigger associated with the different builds in the GCP console
