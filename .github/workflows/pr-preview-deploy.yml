@@ -79,11 +79,13 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
       - name: Format branch name
         env:
-          branch_name: "${{env.BRANCH}}"
-        run: |-
-          echo "BRANCH=${branch_name/\//-}" >> "$GITHUB_ENV"
+          name: "${{env.BRANCH}}"
+        run: echo "BRANCH=${name/\//-}" >> "$GITHUB_ENV"
 
       - name: Get client and server services
         run: |-
@@ -96,9 +98,6 @@ jobs:
           echo "CLIENT_URL=${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}" >> "$GITHUB_ENV"
           echo "SERVER_IMAGE=${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
           echo "SERVER_URL=${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
-
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
 
       - name: Google Auth
         id: auth
