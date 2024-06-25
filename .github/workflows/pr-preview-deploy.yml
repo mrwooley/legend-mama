@@ -79,24 +79,20 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Get services
-        id: vars
+      - name: Format branch name
+        env:
+          name: "${{env.BRANCH}}"
         run: |-
           echo "BRANCH=${name/\//-}" >> "$GITHUB_ENV"
-          echo "CLIENT_SERVICE=${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}" >> "$GITHUB_ENV"
-          echo "SERVER_SERVICE=${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}" >> "$GITHUB_ENV"
 
-      - name: Check env
+      - name: Get client and server variables
         run: |-
-          echo "BRANCH: $BRANCH"
-          echo "CLIENT_SERVICE: $CLIENT_SERVICE"
-          echo "CLIENT_IMAGE: $CLIENT_IMAGE"
-          echo "CLIENT_URL: $CLIENT_URL"
-        env:
-          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
+          echo "CLIENT_SERVICE=${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}" >> "$GITHUB_ENV"
+          echo "CLIENT_IMAGE=${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}" >> "$GITHUB_ENV"
+          echo "CLIENT_URL=${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}" >> "$GITHUB_ENV"
+          echo "SERVER_SERVICE=${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}" >> "$GITHUB_ENV"
+          echo "SERVER_IMAGE=${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
+          echo "SERVER_URL=${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
 
       - name: Checkout
         uses: actions/checkout@v4.1.1
