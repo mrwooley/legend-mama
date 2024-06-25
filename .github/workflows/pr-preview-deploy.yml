@@ -77,10 +77,16 @@ jobs:
       pull-requests: 'write'
 
     env:
-      BRANCH: ${${{github.head_ref}}//\//_}
+      BRANCH: ${{github.head_ref}}
 
     runs-on: ubuntu-latest
     steps:
+      - name: Clean branch name
+        env:
+          name: "${{env.BRANCH}}"
+        run: |
+          echo "BRANCH=${name/\//-}" >> $GITHUB_ENV
+
       - name: Check env
         run: |-
           echo "BRANCH: $BRANCH"
