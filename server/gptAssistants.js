@@ -8,7 +8,7 @@ const client = new SecretManagerServiceClient();
  * https://cloud.google.com/secret-manager/docs/access-secret-version
  */
 async function getOpenAIAPIKey() {
-    const name = `projects/780538328126/secrets/openai-api-key/versions/latest`;
+    const name = `projects/373053860621/secrets/openai-api-key/versions/latest`;
 
     try {
         // Access the secret version
