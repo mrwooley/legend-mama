@@ -1,8 +1,6 @@
 import { AICharGen } from './ai_char_generator/library/AICharGen.js'
 import {SecretManagerServiceClient} from '@google-cloud/secret-manager';
 import CharacterIllustrationGenerator from "./helpers/characterIllustrationGenerator.js";
-import dotenv from 'dotenv';
-dotenv.config();
 const client = new SecretManagerServiceClient();
 
 /**
@@ -11,7 +9,7 @@ const client = new SecretManagerServiceClient();
  */
 async function getOpenAIAPIKey() {
     //373053860621
-    const name = `projects/${process.env.GCLOUD_PROJECT}/secrets/openai-api-key/versions/latest`;
+    const name = `projects/legend-mama-tavern/secrets/openai-api-key/versions/latest`;
 
     try {
         // Access the secret version
