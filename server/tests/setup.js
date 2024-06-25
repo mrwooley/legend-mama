@@ -7,7 +7,7 @@ process.env.NODE_ENV = 'test';
 before(async () => {
     console.log('>> Setting up test environment');
     global.testEnv = await initializeTestEnvironment({
-        projectId: 'legend-mama',
+        projectId: 'legend-mama-tavern',
         firestore: {},
         auth: {uid: 'some-fake-user'}
     });

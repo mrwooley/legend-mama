@@ -1,6 +1,5 @@
-import { AICharGen } from './ai_char_generator/library/AICharGen.js'
+import OpenaiAssistants from "./helpers/openaiAssistants.js";
 import {SecretManagerServiceClient} from '@google-cloud/secret-manager';
-import CharacterIllustrationGenerator from "./helpers/characterIllustrationGenerator.js";
 const client = new SecretManagerServiceClient();
 
 /**
@@ -8,8 +7,7 @@ const client = new SecretManagerServiceClient();
  * https://cloud.google.com/secret-manager/docs/access-secret-version
  */
 async function getOpenAIAPIKey() {
-    //373053860621
-    const name = `projects/legend-mama-tavern/secrets/openai-api-key/versions/latest`;
+    const name = `projects/780538328126/secrets/openai-api-key/versions/latest`;
 
     try {
         // Access the secret version
@@ -24,13 +22,6 @@ async function getOpenAIAPIKey() {
 
 // Initialize generators
 const api_key = await getOpenAIAPIKey()
+const aiAssistant = new OpenaiAssistants(api_key);
 
-const charGen = new AICharGen(api_key);
-await charGen.initialize({
-    vectorStoreId: 'vs_3WaLOhWlKHZtYUjygY88CoGH',
-    assistantId: 'asst_kmM47YTEiaiQ7hLxx5aTuf9e'
-})
-
-const charIllustrationGen = new CharacterIllustrationGenerator(api_key);
-
-export {charGen as default, charIllustrationGen};
+export default aiAssistant;

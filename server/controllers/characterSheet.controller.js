@@ -5,7 +5,7 @@ Controller for character sheet creation/editing
 import asyncHandler from "express-async-handler";
 import {CharacterSheet} from "../models/characterSheet.model.js";
 import {CharacterDetails} from "../models/characterDetails.model.js";
-import charGen from "../gptAssistants.js";
+import aiAssistant from "../aiAssistants.js";
 import {GeneratedCharacter} from "../models/generatedCharacter.model.js";
 
 /**
@@ -17,7 +17,7 @@ export const createCharacterSheet = asyncHandler(async (req, res) => {
 
     try {
         console.time("Requesting from ChatGPT...");
-        const generatedCharacter = await charGen.generateChar(characterDetails);
+        const generatedCharacter = await aiAssistant.getCharacterSheet(characterDetails);
         console.timeEnd("Requesting from ChatGPT...");
 
         console.log("Generated character from GPT:", generatedCharacter);

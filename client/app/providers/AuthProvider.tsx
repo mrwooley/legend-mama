@@ -15,9 +15,9 @@ import { ReactNode, createContext, useMemo, useState } from "react";
  */
 const firebaseConfig = {
   apiKey: "AIzaSyBwVZfuUNAFPesdG2ETmQUiCtnGyS7UTD0",
-  authDomain: "legend-mama.firebaseapp.com",
-  projectId: "legend-mama",
-  storageBucket: "legend-mama.appspot.com",
+  authDomain: "legend-mama-tavern.firebaseapp.com",
+  projectId: "legend-mama-tavern",
+  storageBucket: "legend-mama-tavern.appspot.com",
   messagingSenderId: "780538328126",
   appId: "1:780538328126:web:38ddfd7e5e662ddc29cd6f",
 } as const;
@@ -51,10 +51,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Try to ensure that we only initialize the Firebase app once - might need debugging
 
     try {
-      app = getApp("legend-mama");
+      app = getApp("legend-mama-tavern");
     } catch (err: any) {
       if (err.name === "FirebaseError") {
-        app = initializeApp(firebaseConfig, "legend-mama");
+        app = initializeApp(firebaseConfig, "legend-mama-tavern");
       } else {
         throw err;
       }

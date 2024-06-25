@@ -2,7 +2,7 @@
 Controller for generating a character illustration
  */
 import asyncHandler from "express-async-handler";
-import {charIllustrationGen} from "../gptAssistants.js";
+import aiAssistant from "../aiAssistants.js";
 import {generateV4ReadSignedUrl} from "../helpers/cloudStoreOperations.js";
 
 /**
@@ -10,7 +10,8 @@ import {generateV4ReadSignedUrl} from "../helpers/cloudStoreOperations.js";
  */
 export const newCharacterIllustration = asyncHandler(async (req, res) => {
     try {
-        const imageURL = await charIllustrationGen.generateCharacterIllustration(req.body);
+        const imageDetails = await aiAssistant.getCharacterIllustrationDetails(req.body);
+        const imageURL = await aiAssistant.getCharacterIllustration(imageDetails);
 
         res.status(201).json({
             url: imageURL
