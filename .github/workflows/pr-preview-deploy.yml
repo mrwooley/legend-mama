@@ -91,6 +91,8 @@ jobs:
         run: |-
           echo "BRANCH: $BRANCH"
           echo "CLIENT_SERVICE: $CLIENT_SERVICE"
+          echo "CLIENT_IMAGE: $CLIENT_IMAGE"
+          echo "CLIENT_URL: $CLIENT_URL"
         env:
           CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
           CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
