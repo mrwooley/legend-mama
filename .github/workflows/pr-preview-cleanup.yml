@@ -55,11 +55,9 @@ concurrency:
 env:
   PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update Google Cloud project id
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # TODO: update Artifact Registry location
-  CLIENT_SERVICE: client-${{ github.head_ref }}-${{ github.event.pull_request.number }}
-  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}-${{ github.event.pull_request.number }}
-  SERVER_SERVICE: server-${{ github.head_ref }}-${{ github.event.pull_request.number }}
-  SERVER_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/server-${{ github.head_ref }}-${{ github.event.pull_request.number }}
   REGION: ${{ vars.GCR_LOCATION }} # TODO: update Cloud Run service region
+  SERVICE_FORMAT: '{0}-{1}' # 0 = client or server, 1 = branch name
+  IMAGE_FORMAT: '${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/{0}' # 0 is service
 
 jobs:
   cleanup:
@@ -71,6 +69,21 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Format branch name
+        env:
+          name: "${{github.head_ref}}"
+        run: echo "BRANCH=${name/\//-}" >> "$GITHUB_ENV"
+
+      - name: Get client and server services
+        run: |-
+          echo "CLIENT_SERVICE=${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}" >> "$GITHUB_ENV"
+          echo "SERVER_SERVICE=${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}" >> "$GITHUB_ENV"
+
+      - name: Get client and server parameters
+        run: |-
+          echo "CLIENT_IMAGE=${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}" >> "$GITHUB_ENV"
+          echo "SERVER_IMAGE=${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
+
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
