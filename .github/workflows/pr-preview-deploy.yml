@@ -60,6 +60,7 @@ env:
   SERVICE_FORMAT: '{0}-{1}' # 0 = client or server, 1 = branch name
   IMAGE_FORMAT: '${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/{0}' # 0 is service
   URL_FORMAT: 'https://{0}-ijpuyqrx3a-uc.a.run.app' # 0 is service name
+  BRANCH: ${{github.head_ref}}
 
 #  CLIENT_SERVICE: client-${{ github.head_ref }}
 #  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}
@@ -76,16 +77,14 @@ jobs:
       id-token: 'write'
       pull-requests: 'write'
 
-    env:
-      BRANCH: ${{github.head_ref}}
-
     runs-on: ubuntu-latest
     steps:
-      - name: Clean branch name
-        env:
-          name: "${{env.BRANCH}}"
-        run: |
-          echo "BRANCH=${name/\//-}" >> $GITHUB_ENV
+      - name: Get services
+        id: vars
+        run: |-
+          echo "BRANCH=${name/\//-}" >> "$GITHUB_ENV"
+          echo "CLIENT_SERVICE=${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}" >> "$GITHUB_ENV"
+          echo "SERVER_SERVICE=${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}" >> "$GITHUB_ENV"
 
       - name: Check env
         run: |-
@@ -94,10 +93,8 @@ jobs:
           echo "CLIENT_IMAGE: $CLIENT_IMAGE"
           echo "CLIENT_URL: $CLIENT_URL"
         env:
-          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
           CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
           CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
           SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
           SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
@@ -133,9 +130,9 @@ jobs:
 
       - name: Build and Push Client Container
         run: |- # Pass in url from server preview deployment to use as our API endpoint
-          bash -c 'docker pull "${{env.CLIENT_IMAGE}}:latest" || exit 0'
-          docker build -t "${{env.CLIENT_IMAGE}}:latest" --cache-from "${{env.CLIENT_IMAGE}}:latest" ./client --build-arg NEXT_PUBLIC_API=${{ env.SERVER_URL }}/api/v1
-          docker push "${{env.CLIENT_IMAGE}}"
+          bash -c 'docker pull "$CLIENT_IMAGE:latest" || exit 0'
+          docker build -t "$CLIENT_IMAGE:latest" --cache-from "$CLIENT_IMAGE:latest" ./client --build-arg NEXT_PUBLIC_API=$SERVER_URL/api/v1
+          docker push "$CLIENT_IMAGE"
         env:
           CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
           CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
