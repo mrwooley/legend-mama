@@ -78,12 +78,6 @@ jobs:
 
     env:
       BRANCH: ${${{github.head_ref}}//\//_}
-      CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
-      CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-      CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-      SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
-      SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-      SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
     runs-on: ubuntu-latest
     steps:
@@ -91,6 +85,13 @@ jobs:
         run: |-
           echo "BRANCH: $BRANCH"
           echo "CLIENT_SERVICE: $CLIENT_SERVICE"
+        env:
+          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
+          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
+          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
+          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
+          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
+          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -127,12 +128,26 @@ jobs:
           bash -c 'docker pull "${{env.CLIENT_IMAGE}}:latest" || exit 0'
           docker build -t "${{env.CLIENT_IMAGE}}:latest" --cache-from "${{env.CLIENT_IMAGE}}:latest" ./client --build-arg NEXT_PUBLIC_API=${{ env.SERVER_URL }}/api/v1
           docker push "${{env.CLIENT_IMAGE}}"
+        env:
+          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
+          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
+          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
+          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
+          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
+          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Build and Push Server Container
         run: |-
           bash -c 'docker pull "${{ env.SERVER_IMAGE }}:latest" || exit 0'
           docker build -t "${{ env.SERVER_IMAGE }}:latest" --cache-from "${{ env.SERVER_IMAGE }}:latest" ./server --build-arg CLIENT_URL=${{ env.CLIENT_URL }}
           docker push "${{ env.SERVER_IMAGE }}"
+        env:
+          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
+          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
+          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
+          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
+          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
+          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Deploy Client to Cloud Run
         id: deploy-client
@@ -143,6 +158,13 @@ jobs:
           # NOTE: If using a pre-built image, update the image name here
           image: ${{ env.CLIENT_IMAGE }}
           flags: '--allow-unauthenticated'
+        env:
+          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
+          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
+          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
+          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
+          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
+          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Deploy Server to Cloud Run
         id: deploy-server
@@ -153,6 +175,13 @@ jobs:
           # NOTE: If using a pre-built image, update the image name here
           image: ${{ env.SERVER_IMAGE }}
           flags: '--allow-unauthenticated'
+        env:
+          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
+          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
+          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
+          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
+          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
+          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
