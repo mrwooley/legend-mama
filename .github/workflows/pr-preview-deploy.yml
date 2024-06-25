@@ -60,7 +60,7 @@ env:
   SERVICE_FORMAT: '{0}-{1}' # 0 = client or server, 1 = branch name
   IMAGE_FORMAT: '${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/{0}' # 0 is service
   URL_FORMAT: 'https://{0}-ijpuyqrx3a-uc.a.run.app' # 0 is service name
-  BRANCH: ${{github.head_ref}}
+
 
 #  CLIENT_SERVICE: client-${{ github.head_ref }}
 #  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}
@@ -81,16 +81,19 @@ jobs:
     steps:
       - name: Format branch name
         env:
-          name: "${{env.BRANCH}}"
+          branch_name: "${{env.BRANCH}}"
         run: |-
-          echo "BRANCH=${name/\//-}" >> "$GITHUB_ENV"
+          echo "BRANCH=${branch_name/\//-}" >> "$GITHUB_ENV"
 
-      - name: Get client and server variables
+      - name: Get client and server services
         run: |-
           echo "CLIENT_SERVICE=${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}" >> "$GITHUB_ENV"
+          echo "SERVER_SERVICE=${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}" >> "$GITHUB_ENV"
+
+      - name: Get client and server parameters
+        run: |-
           echo "CLIENT_IMAGE=${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}" >> "$GITHUB_ENV"
           echo "CLIENT_URL=${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}" >> "$GITHUB_ENV"
-          echo "SERVER_SERVICE=${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}" >> "$GITHUB_ENV"
           echo "SERVER_IMAGE=${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
           echo "SERVER_URL=${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}" >> "$GITHUB_ENV"
 
@@ -129,26 +132,12 @@ jobs:
           bash -c 'docker pull "$CLIENT_IMAGE:latest" || exit 0'
           docker build -t "$CLIENT_IMAGE:latest" --cache-from "$CLIENT_IMAGE:latest" ./client --build-arg NEXT_PUBLIC_API=$SERVER_URL/api/v1
           docker push "$CLIENT_IMAGE"
-        env:
-          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
-          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
-          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Build and Push Server Container
         run: |-
           bash -c 'docker pull "${{ env.SERVER_IMAGE }}:latest" || exit 0'
           docker build -t "${{ env.SERVER_IMAGE }}:latest" --cache-from "${{ env.SERVER_IMAGE }}:latest" ./server --build-arg CLIENT_URL=${{ env.CLIENT_URL }}
           docker push "${{ env.SERVER_IMAGE }}"
-        env:
-          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
-          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
-          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Deploy Client to Cloud Run
         id: deploy-client
@@ -159,13 +148,6 @@ jobs:
           # NOTE: If using a pre-built image, update the image name here
           image: ${{ env.CLIENT_IMAGE }}
           flags: '--allow-unauthenticated'
-        env:
-          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
-          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
-          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       - name: Deploy Server to Cloud Run
         id: deploy-server
@@ -176,13 +158,6 @@ jobs:
           # NOTE: If using a pre-built image, update the image name here
           image: ${{ env.SERVER_IMAGE }}
           flags: '--allow-unauthenticated'
-        env:
-          CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
-          CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-          CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-          SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
-          SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-          SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
       # If required, use the Cloud Run url output in later steps
       - name: Show Output
