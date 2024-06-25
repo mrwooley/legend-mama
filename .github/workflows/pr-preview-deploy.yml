@@ -56,13 +56,18 @@ concurrency:
 env:
   PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update Google Cloud project id
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # TODO: update Artifact Registry location
-  CLIENT_SERVICE: client-${{ github.head_ref }}
-  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}
-  CLIENT_URL: https://client-${{ github.head_ref }}-ijpuyqrx3a-uc.a.run.app
-  SERVER_SERVICE: server-${{ github.head_ref }}
-  SERVER_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/server-${{ github.head_ref }}
-  SERVER_URL: https://server-${{ github.head_ref }}-ijpuyqrx3a-uc.a.run.app
   REGION: ${{ vars.GCR_LOCATION }} # TODO: update Cloud Run service region
+  SERVICE_FORMAT: {0}-{1} # 0 = client or server, 1 = branch name
+  IMAGE_FORMAT: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/{0} # 0 is service
+  URL_FORMAT: https://{0}-ijpuyqrx3a-uc.a.run.app # 0 is service name
+
+#  CLIENT_SERVICE: client-${{ github.head_ref }}
+#  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}
+#  CLIENT_URL: https://client-${{ github.head_ref }}-ijpuyqrx3a-uc.a.run.app
+#  SERVER_SERVICE: server-${{ github.head_ref }}
+#  SERVER_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/server-${{ github.head_ref }}
+#  SERVER_URL: https://server-${{ github.head_ref }}-ijpuyqrx3a-uc.a.run.app
+
 
 jobs:
   deploy:
@@ -72,8 +77,22 @@ jobs:
       id-token: 'write'
       pull-requests: 'write'
 
+    env:
+      BRANCH: ${${{github.head_ref}}//\//_}
+      CLIENT_SERVICE: ${{format(SERVICE_FORMAT, 'client', BRANCH)}}
+      CLIENT_IMAGE: ${{format(IMAGE_FORMAT, CLIENT_SERVICE)}}
+      CLIENT_URL: ${{format(URL_FORMAT, CLIENT_SERVICE)}}
+      SERVER_SERVICE: ${{format(SERVICE_FORMAT, 'server', BRANCH)}}
+      SERVER_IMAGE: ${{format(IMAGE_FORMAT, SERVER_SERVICE)}}
+      SERVER_URL: ${{format(URL_FORMAT, SERVER_SERVICE)}}
+
     runs-on: ubuntu-latest
     steps:
+      - name: Check env
+        run: |-
+          echo "BRANCH: $BRANCH"
+          echo "CLIENT_SERVICE: CLIENT_SERVICE"
+
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
@@ -106,9 +125,9 @@ jobs:
 
       - name: Build and Push Client Container
         run: |- # Pass in url from server preview deployment to use as our API endpoint
-          bash -c 'docker pull "${{ env.CLIENT_IMAGE }}:latest" || exit 0'
-          docker build -t "${{ env.CLIENT_IMAGE }}:latest" --cache-from "${{ env.CLIENT_IMAGE }}:latest" ./client --build-arg NEXT_PUBLIC_API=${{ env.SERVER_URL }}/api/v1
-          docker push "${{ env.CLIENT_IMAGE }}"
+          bash -c 'docker pull "${{env.CLIENT_IMAGE}}:latest" || exit 0'
+          docker build -t "${{env.CLIENT_IMAGE}}:latest" --cache-from "${{env.CLIENT_IMAGE}}:latest" ./client --build-arg NEXT_PUBLIC_API=${{ env.SERVER_URL }}/api/v1
+          docker push "${{env.CLIENT_IMAGE}}"
 
       - name: Build and Push Server Container
         run: |-
