@@ -128,9 +128,9 @@ jobs:
 
       - name: Build and Push Client Container
         run: |- # Pass in url from server preview deployment to use as our API endpoint
-          bash -c 'docker pull "$CLIENT_IMAGE:latest" || exit 0'
-          docker build -t "$CLIENT_IMAGE:latest" --cache-from "$CLIENT_IMAGE:latest" ./client --build-arg NEXT_PUBLIC_API=$SERVER_URL/api/v1
-          docker push "$CLIENT_IMAGE"
+          bash -c 'docker pull "${{ env.CLIENT_IMAGE }}:latest" || exit 0'
+          docker build -t "${{ env.CLIENT_IMAGE }}:latest" --cache-from "${{ env.CLIENT_IMAGE }}:latest" ./client --build-arg NEXT_PUBLIC_API=${{ env.SERVER_URL }}/api/v1
+          docker push "${{ env.CLIENT_IMAGE }}"
 
       - name: Build and Push Server Container
         run: |-
