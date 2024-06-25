@@ -59,15 +59,7 @@ env:
   REGION: ${{ vars.GCR_LOCATION }} # TODO: update Cloud Run service region
   SERVICE_FORMAT: '{0}-{1}' # 0 = client or server, 1 = branch name
   IMAGE_FORMAT: '${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/{0}' # 0 is service
-  URL_FORMAT: 'https://{0}-ijpuyqrx3a-uc.a.run.app' # 0 is service name
-
-
-#  CLIENT_SERVICE: client-${{ github.head_ref }}
-#  CLIENT_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/client-${{ github.head_ref }}
-#  CLIENT_URL: https://client-${{ github.head_ref }}-ijpuyqrx3a-uc.a.run.app
-#  SERVER_SERVICE: server-${{ github.head_ref }}
-#  SERVER_IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/server-${{ github.head_ref }}
-#  SERVER_URL: https://server-${{ github.head_ref }}-ijpuyqrx3a-uc.a.run.app
+  URL_FORMAT: 'https://{0}-abl7jbh3ha-uc.a.run.app' # 0 is service name
 
 jobs:
   deploy:
