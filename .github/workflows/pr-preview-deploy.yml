@@ -78,19 +78,19 @@ jobs:
 
     env:
       BRANCH: ${${{github.head_ref}}//\//_}
-      CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
-      CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
-      CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
-      SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
-      SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
-      SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
+      CLIENT_SERVICE: ${{format(jobs.deploy.env.SERVICE_FORMAT, 'client', jobs.deploy.env.BRANCH)}}
+      CLIENT_IMAGE: ${{format(jobs.deploy.env.IMAGE_FORMAT, jobs.deploy.env.CLIENT_SERVICE)}}
+      CLIENT_URL: ${{format(jobs.deploy.env.URL_FORMAT, jobs.deploy.env.CLIENT_SERVICE)}}
+      SERVER_SERVICE: ${{format(jobs.deploy.env.SERVICE_FORMAT, 'server', jobs.deploy.env.BRANCH)}}
+      SERVER_IMAGE: ${{format(jobs.deploy.env.IMAGE_FORMAT, jobs.deploy.env.SERVER_SERVICE)}}
+      SERVER_URL: ${{format(jobs.deploy.env.URL_FORMAT, jobs.deploy.env.SERVER_SERVICE)}}
 
     runs-on: ubuntu-latest
     steps:
       - name: Check env
         run: |-
           echo "BRANCH: $BRANCH"
-          echo "CLIENT_SERVICE: CLIENT_SERVICE"
+          echo "CLIENT_SERVICE: $CLIENT_SERVICE"
 
       - name: Checkout
         uses: actions/checkout@v4.1.1
