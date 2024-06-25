@@ -78,12 +78,12 @@ jobs:
 
     env:
       BRANCH: ${${{github.head_ref}}//\//_}
-      CLIENT_SERVICE: ${{format(SERVICE_FORMAT, 'client', BRANCH)}}
-      CLIENT_IMAGE: ${{format(IMAGE_FORMAT, CLIENT_SERVICE)}}
-      CLIENT_URL: ${{format(URL_FORMAT, CLIENT_SERVICE)}}
-      SERVER_SERVICE: ${{format(SERVICE_FORMAT, 'server', BRANCH)}}
-      SERVER_IMAGE: ${{format(IMAGE_FORMAT, SERVER_SERVICE)}}
-      SERVER_URL: ${{format(URL_FORMAT, SERVER_SERVICE)}}
+      CLIENT_SERVICE: ${{format(env.SERVICE_FORMAT, 'client', env.BRANCH)}}
+      CLIENT_IMAGE: ${{format(env.IMAGE_FORMAT, env.CLIENT_SERVICE)}}
+      CLIENT_URL: ${{format(env.URL_FORMAT, env.CLIENT_SERVICE)}}
+      SERVER_SERVICE: ${{format(env.SERVICE_FORMAT, 'server', env.BRANCH)}}
+      SERVER_IMAGE: ${{format(env.IMAGE_FORMAT, env.SERVER_SERVICE)}}
+      SERVER_URL: ${{format(env.URL_FORMAT, env.SERVER_SERVICE)}}
 
     runs-on: ubuntu-latest
     steps:
