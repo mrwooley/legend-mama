@@ -57,7 +57,7 @@ env:
   PROJECT_ID: ${{ vars.PROJECT_ID }} # TODO: update Google Cloud project id
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # TODO: update Artifact Registry location
   REGION: ${{ vars.GCR_LOCATION }} # TODO: update Cloud Run service region
-  SERVICE_FORMAT: {0}-{1} # 0 = client or server, 1 = branch name
+  SERVICE_FORMAT: '{0}-{1}' # 0 = client or server, 1 = branch name
 #  IMAGE_FORMAT: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.PROJECT_ID }}/development/{0} # 0 is service
 #  URL_FORMAT: https://{0}-ijpuyqrx3a-uc.a.run.app # 0 is service name
 
