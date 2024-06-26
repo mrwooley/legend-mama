@@ -261,7 +261,7 @@ export default class OpenaiAssistants {
             prompt: prompt,
             n: 1,
             size: "1024x1024",
-            user: "legend-mama-capstone",
+            user: "legend-mama",
             quality: 'standard'
         });
         console.timeEnd("Get Image");
@@ -279,7 +279,7 @@ export default class OpenaiAssistants {
             },
             {
                 "role": "user",
-                "content": "```json"+inputData+"```"
+                "content": "```json"+JSON.stringify(inputData)+"```"
             }
         ];
 
@@ -299,7 +299,7 @@ export default class OpenaiAssistants {
             },
             {
                 "role": "user",
-                "content": "```json"+inputData+"```"
+                "content": "```json"+JSON.stringify(inputData)+"```"
             }
         ];
 

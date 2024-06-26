@@ -10,8 +10,8 @@ import {generateV4ReadSignedUrl} from "../helpers/cloudStoreOperations.js";
  */
 export const newCharacterIllustration = asyncHandler(async (req, res) => {
     try {
-        const imageDetails = await aiAssistant.getCharacterIllustrationDetails(req.body);
-        const imageURL = await aiAssistant.getCharacterIllustration(imageDetails);
+        const prompt = await aiAssistant.getCharacterIllustrationDetails(req.body);
+        const imageURL = await aiAssistant.getCharacterIllustration(prompt.details);
 
         res.status(201).json({
             url: imageURL
