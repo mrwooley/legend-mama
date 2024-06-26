@@ -299,7 +299,7 @@ function Recovery({
             <Stack direction="column" alignItems="center" mt={6}>
               <Text textAlign="center">
                 Your password recovery email is on its way! Please look for an
-                email from <strong>noreply@legend-mama.firebaseapp.com</strong>{" "}
+                email from <strong>noreply@legend-mama-tavern.firebaseapp.com</strong>{" "}
                 and follow the link to reset your password.
               </Text>
               <Button secondary width={200} onClick={() => setView("main")}>
