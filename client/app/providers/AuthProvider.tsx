@@ -14,12 +14,13 @@ import { ReactNode, createContext, useMemo, useState } from "react";
 /** These don't have to be secrets per docs: https://firebase.google.com/docs/projects/api-keys
  */
 const firebaseConfig = {
-  apiKey: "AIzaSyBwVZfuUNAFPesdG2ETmQUiCtnGyS7UTD0",
+  apiKey: "AIzaSyBijycU3ZdhZb06gmLz9oFTHCyjUXMFXoo",
   authDomain: "legend-mama-tavern.firebaseapp.com",
   projectId: "legend-mama-tavern",
   storageBucket: "legend-mama-tavern.appspot.com",
-  messagingSenderId: "780538328126",
-  appId: "1:780538328126:web:38ddfd7e5e662ddc29cd6f",
+  messagingSenderId: "373053860621",
+  appId: "1:373053860621:web:e973bfb5913118dcf35e44",
+  measurementId: "G-2WYDLF8JMQ"
 } as const;
 
 interface AuthContextType {
@@ -51,10 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Try to ensure that we only initialize the Firebase app once - might need debugging
 
     try {
-      app = getApp("legend-mama-tavern");
+      app = getApp("legend-mama");
     } catch (err: any) {
       if (err.name === "FirebaseError") {
-        app = initializeApp(firebaseConfig, "legend-mama-tavern");
+        app = initializeApp(firebaseConfig, "legend-mama");
       } else {
         throw err;
       }

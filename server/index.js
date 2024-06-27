@@ -4,5 +4,5 @@ dotenv.config();
 
 const port = parseInt(process.env.PORT) || 3000;
 app.listen(port, () => {
-    console.log(`legend-mama: listening on port ${port}`);
+    console.log(`legend-mama-server: listening on port ${port}`);
 });

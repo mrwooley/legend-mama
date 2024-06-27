@@ -33,7 +33,7 @@ costs in a non-production environment, use NODE_ENV="TEST".
 `
 FIRESTORE_EMULATOR_HOST="127.0.0.1:8080"
 FIREBASE_AUTH_EMULATOR_HOST="127.0.0.1:9099"
-GCLOUD_PROJECT="legend-mama"
+GCLOUD_PROJECT="legend-mama-tavern"
 NODE_ENV="test"
 `
 

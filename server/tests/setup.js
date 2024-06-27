@@ -14,7 +14,7 @@ before(async () => {
     console.log(global.testEnv);
     await global.testEnv.clearFirestore();
     await global.testEnv.clearStorage();
-    await fetch('http://localhost:9099/emulator/v1/projects/legend-mama/accounts',
+    await fetch('http://localhost:9099/emulator/v1/projects/legend-mama-tavern/accounts',
         {method: 'DELETE'});
 
     console.log('>> Creating dummy users');
@@ -29,7 +29,7 @@ after(async () => {
     console.log('>> Clearing Firestore and Auth emulators')
     await global.testEnv.clearFirestore();
     await global.testEnv.clearStorage();
-    await fetch('http://localhost:9099/emulator/v1/projects/legend-mama/accounts',
+    await fetch('http://localhost:9099/emulator/v1/projects/legend-mama-tavern/accounts',
         {method: 'DELETE'});
 
     await global.testEnv.cleanup();
