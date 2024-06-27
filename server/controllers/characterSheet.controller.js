@@ -23,6 +23,7 @@ export const createCharacterSheet = asyncHandler(async (req, res) => {
         console.log("Generated character from GPT:", generatedCharacter);
         // Pass to helpers to check and derive fields
         const genChar = new GeneratedCharacter(generatedCharacter);
+        console.log('Char sheet checks');
         const charSheet = new CharacterSheet(genChar);
 
         console.log("Successfully created character sheet");

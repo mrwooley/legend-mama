@@ -29,8 +29,7 @@ export class Character1 {
                 "Insight",
                 "Religion"
             ],
-                tools: [],
-                languages: ["Dwarvish", "Giant"],
+                other: ["Dwarvish", "Giant"],
                 feature: {
                 name: "Shelter of the Faithful",
                     description: "Provides the character with significant support from their religious community. As a result, the character and their adventuring party can receive free healing and care at temples and other religious communities associated with their faith, and they can also count on the clergy for support in obtaining information and securing allies."
@@ -222,8 +221,7 @@ export class Character2 {
                 "Medicine",
                 "Religion"
             ],
-            tools: ["Herbalism Kit"],
-            languages: ["Infernal"],
+            other: ["Herbalism Kit", "Infernal"],
             feature: {
                 name: "Discovery",
                 description: "The quiet seclusion of your extended hermitage gave you access to a unique and powerful discovery. The exact nature of this revelation depends on the nature of your seclusion."
