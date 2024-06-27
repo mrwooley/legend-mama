@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import {createUserWithEmailAndPassword, getAuth, connectAuthEmulator, deleteUser} from "firebase/auth";
 
 // // Initialize Firebase
-const app = initializeApp({projectId: "legend-mama", apiKey: "apikey"});
+const app = initializeApp({projectId: "legend-mama-tavern", apiKey: "apikey"});
 
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
