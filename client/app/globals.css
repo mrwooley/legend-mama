@@ -1,8 +1,0 @@
-:root {
-  --bg-gray: #13120F;
-  /* Font variables are defined in app/layout.tsx */
-}
-
-html {
-  background: var(--bg-gray);
-}
