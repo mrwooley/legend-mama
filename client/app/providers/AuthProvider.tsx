@@ -63,7 +63,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     ctx.auth = getAuth(app);
 
-    // Initialize auth providers
+    // Initialize auth (providers)
     const googleAuthProvider = new GoogleAuthProvider();
     ctx.providers.google = googleAuthProvider;
 
