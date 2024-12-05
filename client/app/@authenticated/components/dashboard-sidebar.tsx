@@ -1,12 +1,12 @@
 "use client"
 
 import {Sidebar, SidebarContent, SidebarFooter, SidebarHeader} from "@/components/ui/sidebar";
-import {Conversation, Dialogue, Speaker} from "@/components/conversation";
+import {Conversation, DialogueField, SpeakerField} from "@/components/conversation";
 import {NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuLink} from "@/components/ui/navigation";
 import * as React from "react";
 import {Logo} from "@/components/ui/logo";
 import {CoinPouch} from "@/components/coin-pouch";
-import {User} from "@/app/(providers)/data-provider";
+import {User} from "@/lib/types";
 
 
 export default function DashboardSidebar() {
@@ -27,19 +27,19 @@ export default function DashboardSidebar() {
         </SidebarHeader>
         <SidebarContent className="text-text-1">
           <Conversation className="text-text-5">
-            <Speaker>TAVERNKEEP:</Speaker>
-            <Dialogue>
+            <SpeakerField>TAVERNKEEP:</SpeakerField>
+            <DialogueField>
               <p>
                 Welcome back, {user.name}! It's always a pleasure to see you at Legend Mama.
               </p>
               <p className="mt-3">
                 So, what shall we do today? Enlist a new adventurer, check on your party, or maybe enjoy some ale by the fire?
               </p>
-            </Dialogue>
+            </DialogueField>
           </Conversation>
           <Conversation>
-            <Speaker>ADVENTURER:</Speaker>
-            <Dialogue>
+            <SpeakerField>ADVENTURER:</SpeakerField>
+            <DialogueField>
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -64,7 +64,7 @@ export default function DashboardSidebar() {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-            </Dialogue>
+            </DialogueField>
           </Conversation>
         </SidebarContent>
       </div>

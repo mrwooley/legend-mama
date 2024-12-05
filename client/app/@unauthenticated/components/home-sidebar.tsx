@@ -1,7 +1,7 @@
 "use client"
 import {Logo} from "@/components/ui/logo"
 import {Sidebar, SidebarContent, SidebarHeader} from "@/components/ui/sidebar";
-import {Conversation, Dialogue, Speaker} from "@/components/conversation";
+import {Conversation, DialogueField, SpeakerField} from "@/components/conversation";
 import {NavigationMenu, NavigationMenuItem, NavigationMenuList} from "@/components/ui/navigation";
 import * as React from "react";
 import {useState} from "react";
@@ -20,16 +20,16 @@ export default function HomeSidebar() {
         </SidebarHeader>
         <SidebarContent className="text-text-1">
           <Conversation className="text-text-5">
-            <Speaker>TAVERNKEEP:</Speaker>
-            <Dialogue>Well met, adventurer!</Dialogue>
+            <SpeakerField>TAVERNKEEP:</SpeakerField>
+            <DialogueField>Well met, adventurer!</DialogueField>
           </Conversation>
           <Conversation>
-            <Speaker>ADVENTURER:</Speaker>
-            <Dialogue>What is this place?</Dialogue>
+            <SpeakerField>ADVENTURER:</SpeakerField>
+            <DialogueField>What is this place?</DialogueField>
           </Conversation>
           <Conversation className="text-text-5">
-            <Speaker>TAVERNKEEP:</Speaker>
-            <Dialogue>
+            <SpeakerField>TAVERNKEEP:</SpeakerField>
+            <DialogueField>
               <p>
                 This, my friend, is Legend Mama, the best tavern around! Known far
                 and wide for our finest ale and the most daring adventurers guild.
@@ -37,11 +37,11 @@ export default function HomeSidebar() {
               <p className="mt-3">
                 Look around and create an adventuring party of your own!
               </p>
-            </Dialogue>
+            </DialogueField>
           </Conversation>
           <Conversation>
-            <Speaker>ADVENTURER:</Speaker>
-            <Dialogue>
+            <SpeakerField>ADVENTURER:</SpeakerField>
+            <DialogueField>
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -65,12 +65,12 @@ export default function HomeSidebar() {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-            </Dialogue>
+            </DialogueField>
           </Conversation>
           <div className={`MoreInfo ${moreInfo ? "visible" : "invisible"}`}>
             <Conversation className="text-text-5">
-              <Speaker>TAVERNKEEP:</Speaker>
-              <Dialogue>
+              <SpeakerField>TAVERNKEEP:</SpeakerField>
+              <DialogueField>
                 <p>
                   <span>*Sigh*</span> Alright, alright. Just
                   don’t tell the patrons or things get weird...
@@ -83,7 +83,7 @@ export default function HomeSidebar() {
                 <p className="mt-3">
                   But don't let that spoil the magic — dive in and have some fun!
                 </p>
-              </Dialogue>
+              </DialogueField>
             </Conversation>
           </div>
         </SidebarContent>

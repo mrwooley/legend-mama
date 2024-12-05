@@ -2,7 +2,7 @@ import * as React from "react"
 import Image from 'next/image'
 import img from '@/public/tavern.png'
 
-import {cn} from "@/lib/utils"
+import {cn} from "@/lib/utils/utils"
 
 const TavernImg = React.forwardRef<
   HTMLDivElement,

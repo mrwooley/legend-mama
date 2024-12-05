@@ -6,7 +6,7 @@ import CharacterGrid from "@/app/@authenticated/my-party/components/character-gr
 export default function MyParty() {
 
   return (
-    <div className={"h-full w-full flex flex-col gap-10 py-[3%] px-[5%]"}>
+    <div className={"h-full w-full flex flex-col gap-5 py-[3%] px-[5%] divide-y-2 divide-support"}>
       <header>
         <div className="h-28">
           <Image
@@ -22,7 +22,7 @@ export default function MyParty() {
           Manage your character sheets
         </h2>
       </header>
-      <div className="flex-auto px-[5%]">
+      <div className="flex-auto p-[5%] overflow-y-auto ">
         <CharacterGrid/>
       </div>
     </div>

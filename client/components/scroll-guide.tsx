@@ -7,40 +7,55 @@ import Heart from "@/components/icons/heart";
 
 
 const ScrollGuide = ({active = 0, color = "accent-2"}) => {
-  const lineProps = `justify-self-center h-12 w-0 bg-transparent border-2 border-${color}`;
+  const iconSize = 48;
+  const spacing = 14;
+
+  const circleProps = "flex rounded-full aspect-square place-content-center";
+  const inactiveCircleProps = `bg-text-1`;
+  const activeCircleProps = `bg-${color}`;
+
+  const iconProps = "p-1"
   const inactiveIconProps = `fill-${color}`;
-  const inactiveCircleProps = "flex size-16 bg-text-1 rounded-full place-content-center";
   const activeIconProps = `fill-text-1`;
-  const activeCircleProps = `flex size-16 bg-${color} rounded-full place-content-center`;
+
+  const lineProps = `justify-self-center h-${spacing} w-0 bg-transparent border-2 border-${color}`;
 
 
   return (
-    <div className="inline-flex m-4 text-text-1 font-serif text-xl">
+    <div className="inline-flex m-4 text-text-1 font-serif text-xl gap-2">
       <div className="flex flex-col place-items-center">
-        <div className={active == 1 ? activeCircleProps : inactiveCircleProps}>
-          <Heart className={`pt-1 ${active == 1 ? activeIconProps : inactiveIconProps}`}/>
+        <div className={`${circleProps} ${active == 1 ? activeCircleProps : inactiveCircleProps}`}>
+          <Heart dim={iconSize} className={`${iconProps} ${active == 1 ? activeIconProps : inactiveIconProps}`}/>
         </div>
         <div className={lineProps}/>
-        <div className={active == 2 ? activeCircleProps : inactiveCircleProps}>
-          <Head className={`p-0 ${active == 2 ? activeIconProps : inactiveIconProps}`}/>
+        <div className={`${circleProps} ${active == 2 ? activeCircleProps : inactiveCircleProps}`}>
+          <Head dim={iconSize} className={`${iconProps} ${active == 2 ? activeIconProps : inactiveIconProps}`}/>
         </div>
         <div className={lineProps}/>
-        <div className={active == 3 ? activeCircleProps : inactiveCircleProps}>
-          <Sparkles className={`p-1 ${active == 3 ? activeIconProps : inactiveIconProps}`}/>
+        <div className={`${circleProps} ${active == 3 ? activeCircleProps : inactiveCircleProps}`}>
+          <Sparkles dim={iconSize} className={`${iconProps} ${active == 3 ? activeIconProps : inactiveIconProps}`}/>
         </div>
         <div className={lineProps}/>
-        <div className={active == 3 ? activeCircleProps : inactiveCircleProps}>
-          <Scroll className={`pr-0.5 pt-0.5 ${active == 3 ? activeIconProps : inactiveIconProps}`}/>
+        <div className={`${circleProps} ${active == 4 ? activeCircleProps : inactiveCircleProps}`}>
+          <Scroll dim={iconSize} className={`${iconProps} ${active == 4 ? activeIconProps : inactiveIconProps}`}/>
         </div>
       </div>
-      <div className="flex flex-col pl-3 justify-items-start">
-        <div className="h-16 content-center">Core Identity</div>
-        <div className="h-12"/>
-        <div className="h-16 content-center">Personality</div>
-        <div className="h-12"/>
-        <div className="h-16 content-center">Details</div>
-        <div className="h-12"/>
-        <div className="h-16 content-center">Submit</div>
+      <div className="flex flex-col">
+        <div className="flex-auto h-[${iconSize}] min-h-[${iconSize}] content-center">
+          <div className="align-middle">Core Identity</div>
+        </div>
+        <div className={`h-${spacing}`}/>
+        <div className="flex-auto h-[${iconSize}] min-h-[${iconSize}] content-center">
+          <div className="align-middle">Personality</div>
+        </div>
+        <div className={`h-${spacing}`}/>
+        <div className="flex-auto h-[${iconSize}] min-h-[${iconSize}] content-center">
+          <div className="align-middle">Details</div>
+        </div>
+        <div className={`h-${spacing}`}/>
+        <div className="flex-auto h-[${iconSize}] min-h-[${iconSize}] content-center">
+          <div className="align-middle">Submit</div>
+        </div>
       </div>
     </div>
   )

@@ -1,8 +1,7 @@
-"use client"
 import {Dialog, DialogContent, DialogTrigger,} from "@/components/ui/dialog";
 
 import * as React from "react";
-import {Conversation, Dialogue, Speaker} from "@/components/conversation";
+import {Conversation, DialogueField, SpeakerField} from "@/components/conversation";
 import {NavigationMenu, NavigationMenuItem, NavigationMenuList} from "@/components/ui/navigation";
 import SignInForm from "@/app/@unauthenticated/components/sign-in-form";
 import SignUpForm from "@/app/@unauthenticated/components/sign-up-form";
@@ -16,8 +15,8 @@ export default function AuthDialog({children, view, setView,}: Readonly<{
   const renderDialog = () => {
     const navMenu = (
       <Conversation className={`mt-4 ${view !== "resetPassword" ? "visible" : "hidden"}`}>
-        <Speaker>ADVENTURER:</Speaker>
-        <Dialogue>
+        <SpeakerField>ADVENTURER:</SpeakerField>
+        <DialogueField>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem className={view === "signUp" ? "visible" : "hidden"}>
@@ -37,7 +36,7 @@ export default function AuthDialog({children, view, setView,}: Readonly<{
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </Dialogue>
+        </DialogueField>
       </Conversation>
     )
 

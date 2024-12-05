@@ -4,7 +4,7 @@ import * as React from "react"
 import * as TogglePrimitive from "@radix-ui/react-toggle"
 import {cva, type VariantProps} from "class-variance-authority"
 
-import {cn} from "@/lib/utils"
+import {cn} from "@/lib/utils/utils"
 import CrossedSwords from "@/components/icons/crossed-swords";
 import Sword from "@/components/icons/sword";
 

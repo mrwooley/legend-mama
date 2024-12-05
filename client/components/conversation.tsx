@@ -1,58 +1,63 @@
 import * as React from "react";
-import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import {cn} from "@/lib/utils";
+import {cn} from "@/lib/utils/utils";
 
+interface SpeakerFieldProps extends React.ComponentProps<'div'> {
+  className?: string;
+}
 
+class SpeakerField extends React.Component<SpeakerFieldProps> {
+  render() {
+    let {className, ...props} = this.props;
+    return (
+      <div
+        className={cn(
+          "text-left",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+}
 
-const Speaker = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "text-left",
-      className
-    )}
-    {...props}
-  />
-))
+interface DialogueFieldProps extends React.ComponentProps<'div'> {
+  className?: string;
+}
 
-Speaker.displayName = "Prompt"
+class DialogueField extends React.Component<DialogueFieldProps> {
+  render() {
+    let {className, ...props} = this.props;
+    return (
+      <div
+        className={cn(
+          "text-left mt-1 ml-5 max-md:ml-3",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+}
 
+interface ConversationProps extends React.ComponentProps<'div'> {
+  className?: string;
+}
 
-const Dialogue = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "text-left mt-1 ml-5 max-md:ml-3",
-      className
-    )}
-    {...props}
-  />
-))
+class Conversation extends React.Component<ConversationProps> {
+  render() {
+    let {className, ...props} = this.props;
+    return (
+      <div
+        className={cn(
+          "text-left max-md:text-sm",
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+}
 
-Dialogue.displayName = "Dialog"
-
-const Conversation = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "text-left max-md:text-sm",
-      className
-    )}
-    {...props}
-  />
-))
-
-Conversation.displayName = "PromptDialog"
-
-export {Conversation, Speaker, Dialogue}
+export {Conversation, SpeakerField, DialogueField}
 
 

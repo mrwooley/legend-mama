@@ -1,11 +1,15 @@
 import * as React from "react";
 import Image from "next/image";
 import title from "@/public/enlist-adventurer.svg";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import NewCharacterForm from "@/app/@authenticated/enlist-adventurer/components/new-character-form";
+import {ScrollArea} from "@/components/ui/scroll-area";
+import {Separator} from "@/components/ui/separator";
 
 export default function EnlistAdventurer() {
+
+
   return (
-    <div className={"h-full w-full flex flex-col gap-10 py-[3%] px-[5%]"}>
+    <div className={"h-full w-full flex flex-col gap-5 py-[3%] px-[5%]"}>
       <header>
         <div className="h-28">
           <Image
@@ -21,14 +25,10 @@ export default function EnlistAdventurer() {
           Create a new character
         </h2>
       </header>
-      <div className="flex-auto p-[5%]">
-        <ScrollArea className="h-full w-full rounded-md border">
-          <div className="p-4">
-            <h4 className="mb-4 text-sm font-medium leading-none">Tags</h4>
-            <div> stuff</div>
-          </div>
-        </ScrollArea>
-      </div>
+      <Separator className="bg-support h-0.5"/>
+      <ScrollArea className="flex-auto px-[5%]">
+        <NewCharacterForm/>
+      </ScrollArea>
     </div>
   );
 }

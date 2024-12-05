@@ -5,7 +5,7 @@ import {Input} from "@/components/ui/input";
 import {useForm, useFormState} from "react-hook-form";
 import * as React from "react";
 import {Button} from "@/components/ui/button";
-import {Conversation, Dialogue, Speaker} from "@/components/conversation";
+import {Conversation, DialogueField, SpeakerField} from "@/components/conversation";
 import {DialogHeader, DialogTitle} from "@/components/ui/dialog";
 
 interface FormValues {
@@ -28,14 +28,14 @@ export default function ResetPasswordForm() {
         <DialogTitle className="text-4xl pb-4">Reset Password</DialogTitle>
         <div className="text-text-1">
           <Conversation className="text-text-5 text-base">
-            <Speaker>TAVERNKEEP:</Speaker>
-            <Dialogue>
+            <SpeakerField>TAVERNKEEP:</SpeakerField>
+            <DialogueField>
               Hold tight, adventurer! We're sending a raven with password recovery instructions. Check your inbox
               shortly.
               <br/>
               <br/>
               In the meantime, safe travels and we hope to see you back at Legend Mama!
-            </Dialogue>
+            </DialogueField>
           </Conversation>
         </div>
       </DialogHeader>
@@ -48,11 +48,11 @@ export default function ResetPasswordForm() {
         <DialogTitle className="text-4xl pb-4">Reset Password</DialogTitle>
         <div className="text-text-1">
           <Conversation className="text-text-5">
-            <Speaker>TAVERNKEEP:</Speaker>
-            <Dialogue>
+            <SpeakerField>TAVERNKEEP:</SpeakerField>
+            <DialogueField>
               Forgotten your password, have you? Worry not, you aren't the first and I doubt you will be the last.
               We'll get you sorted!
-            </Dialogue>
+            </DialogueField>
           </Conversation>
         </div>
       </DialogHeader>

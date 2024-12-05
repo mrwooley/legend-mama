@@ -4,7 +4,7 @@ import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import {Check, ChevronDown, ChevronUp} from "lucide-react"
 
-import {cn} from "@/lib/utils"
+import {cn} from "@/lib/utils/utils"
 import {cva, type VariantProps} from "class-variance-authority";
 
 const Select = SelectPrimitive.Root
@@ -14,12 +14,12 @@ const SelectGroup = SelectPrimitive.Group
 const SelectValue = SelectPrimitive.Value
 
 const selectTriggerVariants = cva(
-  "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-accent-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+  "flex h-9 w-full items-center font-medium justify-between whitespace-nowrap rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-accent-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
   {
     variants: {
       variant: {
-        default: "border-input-fill-1/50 bg-background-2 data-[placeholder]:text-text-1/65",
-        light: "border-background-2/50 bg-input-fill-1 data-[placeholder]:text-text-4/65",
+        default: "border-input-fill-1/50 text-text-1 bg-background-2 data-[placeholder]:text-text-1/65",
+        light: "border-background-2/50 text-text-4 bg-input-fill-1 data-[placeholder]:text-text-4/65",
       }
     },
     defaultVariants: {

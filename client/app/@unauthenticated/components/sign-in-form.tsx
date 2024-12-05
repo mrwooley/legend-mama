@@ -6,7 +6,7 @@ import {useForm} from "react-hook-form";
 import * as React from "react";
 import {Button} from "@/components/ui/button";
 import {DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Conversation, Dialogue, Speaker} from "@/components/conversation";
+import {Conversation, DialogueField, SpeakerField} from "@/components/conversation";
 
 interface FormValues {
   email: string;
@@ -28,10 +28,10 @@ export default function SignInForm({children,}: Readonly<{ children: React.React
         <DialogTitle className="text-4xl pb-4">Sign In</DialogTitle>
         <div className="text-text-1">
           <Conversation className="text-text-5">
-            <Speaker>TAVERNKEEP:</Speaker>
-            <Dialogue>
+            <SpeakerField>TAVERNKEEP:</SpeakerField>
+            <DialogueField>
               Ah, a familiar face! You know the drill.
-            </Dialogue>
+            </DialogueField>
           </Conversation>
           {children}
         </div>

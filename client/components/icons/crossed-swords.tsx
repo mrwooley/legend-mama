@@ -8,7 +8,7 @@ export default function CrossedSwords({
 
   const filter = shadow ? "url(#filter0_d_40_2022)" : "none";
   return (
-    <svg width={dim} viewBox="0 0 100 100" className="fill-button-fill-1 stroke-2 stroke-button-fill-1" {...props}>
+    <svg width={dim} viewBox="0 0 100 100" className="fill-button-fill-1 stroke-2 stroke-button-fill-1 hover:fill-highlight group-data-[state=on]:fill-accent-2" {...props}>
       <g filter={filter}>
         <mask id="mask0_40_2022" style={{maskType: "alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="100%"
               height="100%">
@@ -22,8 +22,8 @@ export default function CrossedSwords({
       </g>
       <defs>
         <filter id="filter0_d_40_2022" x="-4" y="0" width="108%" height="108%" filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                          result="hardAlpha"/>
           <feOffset dy="4"/>
