@@ -169,8 +169,7 @@ describe('Character Sheet and Associated Objects', () => {
                     "Insight",
                     "Religion"
                 ],
-                tools: [],
-                languages: ["Elvish", "Dwarvish"],
+                other: ["Elvish", "Dwarvish"],
                 feature: {
                     name: "Shelter of the Faithful",
                     description: "Provides the character with significant support from their religious community. As a result, the character and their adventuring party can receive free healing and care at temples and other religious communities associated with their faith, and they can also count on the clergy for support in obtaining information and securing allies."
@@ -187,8 +186,7 @@ describe('Character Sheet and Associated Objects', () => {
                 skills: [
                     "Insight",
                 ],
-                tools: [],
-                languages: ["Elvish", "Dwarvish"],
+                other: ["Elvish", "Dwarvish"],
                 feature: {
                     name: "Shelter of the Faithful",
                     description: "Provides the character with significant support from their religious community. As a result, the character and their adventuring party can receive free healing and care at temples and other religious communities associated with their faith, and they can also count on the clergy for support in obtaining information and securing allies."
@@ -207,8 +205,7 @@ describe('Character Sheet and Associated Objects', () => {
                     "Medicine",
                     "Religion"
                 ],
-                tools: [],
-                languages: ["Elvish", "Dwarvish"],
+                other: ["Elvish", "Dwarvish"],
                 feature: {
                     name: "Shelter of the Faithful",
                     description: "Provides the character with significant support from their religious community. As a result, the character and their adventuring party can receive free healing and care at temples and other religious communities associated with their faith, and they can also count on the clergy for support in obtaining information and securing allies."
@@ -226,8 +223,7 @@ describe('Character Sheet and Associated Objects', () => {
                     "Insight",
                     "Religion"
                 ],
-                tools: [],
-                languages: ["Elvish"],
+                other: ["Elvish"],
                 feature: {
                     name: "Shelter of the Faithful",
                     description: "Provides the character with significant support from their religious community. As a result, the character and their adventuring party can receive free healing and care at temples and other religious communities associated with their faith, and they can also count on the clergy for support in obtaining information and securing allies."
@@ -246,8 +242,7 @@ describe('Character Sheet and Associated Objects', () => {
                     "Insight",
                     "Religion"
                 ],
-                tools: ["Water vehicles"],
-                languages: ["Elvish", "Draconic"],
+                other: ["Water vehicles", "Elvish", "Draconic"],
                 feature: {
                     name: "Shelter of the Faithful",
                     description: "Provides the character with significant support from their religious community. As a result, the character and their adventuring party can receive free healing and care at temples and other religious communities associated with their faith, and they can also count on the clergy for support in obtaining information and securing allies."

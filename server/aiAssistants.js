@@ -1,6 +1,5 @@
-import { AICharGen } from './ai_char_generator/library/AICharGen.js'
+import OpenaiAssistants from "./helpers/openaiAssistants.js";
 import {SecretManagerServiceClient} from '@google-cloud/secret-manager';
-import CharacterIllustrationGenerator from "./helpers/characterIllustrationGenerator.js";
 const client = new SecretManagerServiceClient();
 
 /**
@@ -24,13 +23,6 @@ async function getOpenAIAPIKey() {
 
 // Initialize generators
 const api_key = await getOpenAIAPIKey()
+const aiAssistant = new OpenaiAssistants(api_key);
 
-const charGen = new AICharGen(api_key);
-await charGen.initialize({
-    vectorStoreId: 'vs_3WaLOhWlKHZtYUjygY88CoGH',
-    assistantId: 'asst_kmM47YTEiaiQ7hLxx5aTuf9e'
-})
-
-const charIllustrationGen = new CharacterIllustrationGenerator(api_key);
-
-export {charGen as default, charIllustrationGen};
+export default aiAssistant;
