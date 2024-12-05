@@ -83,6 +83,8 @@ export class Background {
         this.name = data.name;
         this.description = data.description;
         this.checkSkillProficiency(data.skills);
+        data.tools = data.other.filter(el => !allLanguages.includes(el));
+        data.languages = data.other.filter(el => allLanguages.includes(el));
         this.checkToolsAndLanguages(data.tools, data.languages);
         this.feature = data.feature;
     }

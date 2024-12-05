@@ -52,10 +52,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Try to ensure that we only initialize the Firebase app once - might need debugging
 
     try {
-      app = getApp("legend-mama-tavern");
+      app = getApp("legend-mama");
     } catch (err: any) {
       if (err.name === "FirebaseError") {
-        app = initializeApp(firebaseConfig, "legend-mama-tavern");
+        app = initializeApp(firebaseConfig, "legend-mama");
       } else {
         throw err;
       }
